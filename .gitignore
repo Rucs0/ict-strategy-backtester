@@ -1,0 +1,38 @@
+# Secrets — API keys never go in the repo
+.env
+.env.*
+!.env.example
+
+# Virtualenv
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Tests / tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Cached market data — re-fetchable from the provider, and large.
+# Nothing here should be needed to reproduce a run; the fetch code is the
+# source of truth, not the cache.
+data/
+*.parquet
+
+# Backtest outputs
+results/
+*.log
+
+# OS / editor
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/

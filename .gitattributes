@@ -1,0 +1,9 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Explicitly ensure source code files use LF on the server
+*.py text eol=lf
+
+# Denote files that are truly binary and shouldn't be modified
+*.png binary
+*.jpg binary
