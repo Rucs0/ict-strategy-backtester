@@ -9,6 +9,7 @@ from .fvg import FVG_COLUMNS, find_fvgs, fvg_signal
 from .swings import DEFAULT_N, find_swings, swing_signal
 from .sweeps import find_sweeps, sweep_signal
 from .structure import find_structure_events, mss_signal
+from .ote import find_ote_zones, ote_signal
 from .killzone import (
     KILLZONES,
     Killzone,
@@ -24,10 +25,12 @@ __all__ = [
     "FVG_COLUMNS",
     "KILLZONES",
     "Killzone",
+    "find_ote_zones",
     "find_structure_events",
     "find_sweeps",
     "find_swings",
     "mss_signal",
+    "ote_signal",
     "sweep_signal",
     "swing_signal",
     "describe_killzones",
