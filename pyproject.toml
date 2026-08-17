@@ -1,0 +1,23 @@
+[project]
+name = "ictbt"
+version = "0.1.0"
+description = "ICT strategy backtester — research tool, paper only"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas>=3.0",
+    "numpy>=2.0",
+    "pyarrow>=20.0",
+    "alpaca-py>=0.44",
+    "python-dotenv>=1.0",
+    # Real NYSE holiday and early-close schedule. Needed because Alpaca keeps
+    # returning bars past the exchange close on half days.
+    "pandas_market_calendars>=5.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=9.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+filterwarnings = ["error::FutureWarning"]
