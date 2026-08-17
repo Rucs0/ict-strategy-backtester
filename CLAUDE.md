@@ -60,7 +60,7 @@ arbitrary, and test sensitivity to it.
 
 ## Constraints
 
-- **Owner is 16.** Do not implement live trading, real-money execution, or anything
+- **Owner is 17.** Do not implement live trading, real-money execution, or anything
   requiring an account whose terms he may not meet. Flag it instead of building it.
 - **Equities and equity index futures data only.** Avoid building around leveraged
   spot forex or CFDs — overnight swap financing is interest-based, and the owner
