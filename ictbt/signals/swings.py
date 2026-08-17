@@ -170,14 +170,17 @@ def swing_signal(
     Marks `confirmed_at`, never the swing bar itself. A strategy reading the
     swing bar would be trading on a shape that had not finished forming.
     """
+    # Argument validation precedes any work: a bad argument is a bug whether
+    # or not the data happens to contain a swing.
+    if kind is not None and kind not in ("high", "low"):
+        raise ValueError(f"kind must be 'high' or 'low', got {kind!r}")
+
     swings = find_swings(df, n=n, scope=scope, rth=rth)
     signal = pd.Series(False, index=df.index, name="swing_signal")
     if swings.empty:
         return signal
 
     if kind is not None:
-        if kind not in ("high", "low"):
-            raise ValueError(f"kind must be 'high' or 'low', got {kind!r}")
         swings = swings[swings["kind"] == kind]
 
     marks = swings["confirmed_at"].dropna()

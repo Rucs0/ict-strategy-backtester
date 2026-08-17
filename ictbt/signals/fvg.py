@@ -232,14 +232,19 @@ def fvg_signal(
     pattern, and a backtest entering there would be entering on information it
     could not have had until that bar was over.
     """
+    # Argument validation precedes any work: a bad argument is a bug whether
+    # or not the data happens to contain a gap.
+    if direction is not None and direction not in ("bullish", "bearish"):
+        raise ValueError(
+            f"direction must be 'bullish' or 'bearish', got {direction!r}"
+        )
+
     gaps = find_fvgs(df, rth=rth, fill_mode=fill_mode)
     signal = pd.Series(False, index=df.index, name="fvg_signal")
     if gaps.empty:
         return signal
 
     if direction is not None:
-        if direction not in ("bullish", "bearish"):
-            raise ValueError(f"direction must be 'bullish' or 'bearish', got {direction!r}")
         gaps = gaps[gaps["direction"] == direction]
 
     marks = gaps["tradeable_from"].dropna()

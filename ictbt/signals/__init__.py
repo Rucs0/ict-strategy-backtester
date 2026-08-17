@@ -7,6 +7,7 @@ none of them look forward in time at detection.
 
 from .fvg import FVG_COLUMNS, find_fvgs, fvg_signal
 from .swings import DEFAULT_N, find_swings, swing_signal
+from .sweeps import find_sweeps, sweep_signal
 from .killzone import (
     KILLZONES,
     Killzone,
@@ -22,7 +23,9 @@ __all__ = [
     "FVG_COLUMNS",
     "KILLZONES",
     "Killzone",
+    "find_sweeps",
     "find_swings",
+    "sweep_signal",
     "swing_signal",
     "describe_killzones",
     "filter_to_killzone",
