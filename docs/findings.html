@@ -1,0 +1,671 @@
+<title>ICT Falsification Report</title>
+<style>
+  :root{
+    --paper:#F5F7F8; --raised:#FFFFFF; --sunk:#ECF0F2;
+    --ink:#131A21; --ink-2:#4A5763; --muted:#6E7C88;
+    --rule:#D9E0E5; --rule-soft:#E7ECEF;
+    --accent:#2C5F9E; --negative:#A33A2E; --positive:#3E7A55;
+    --shadow:0 1px 2px rgba(19,26,33,.06), 0 8px 24px rgba(19,26,33,.05);
+    --serif:Charter,"Bitstream Charter","Iowan Old Style","Source Serif 4",Georgia,serif;
+    --mono:ui-monospace,"Cascadia Mono","SF Mono",Menlo,Consolas,monospace;
+    --measure:68ch;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#101519; --raised:#161C22; --sunk:#1B232A;
+      --ink:#E4EAEF; --ink-2:#A9B6C2; --muted:#7E8C99;
+      --rule:#28323B; --rule-soft:#1E262D;
+      --accent:#6FA3DC; --negative:#E08878; --positive:#77B98D;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#101519; --raised:#161C22; --sunk:#1B232A;
+    --ink:#E4EAEF; --ink-2:#A9B6C2; --muted:#7E8C99;
+    --rule:#28323B; --rule-soft:#1E262D;
+    --accent:#6FA3DC; --negative:#E08878; --positive:#77B98D;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--serif); font-size:17px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:0 32px 96px}
+  .col{max-width:var(--measure); margin:0 auto}
+
+  .eyebrow{
+    font-family:var(--mono); font-size:11px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--muted); margin:0;
+  }
+
+  header.masthead{padding:72px 0 0}
+  header.masthead h1{
+    font-size:clamp(34px,5.2vw,50px); line-height:1.08; margin:18px 0 0;
+    letter-spacing:-.021em; text-wrap:balance; font-weight:600;
+  }
+  .standfirst{
+    font-size:20px; color:var(--ink-2); margin:20px 0 0; text-wrap:pretty;
+  }
+  .byline{
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+    margin:28px 0 0; padding-top:18px; border-top:1px solid var(--rule);
+    display:flex; flex-wrap:wrap; gap:22px;
+  }
+
+  .verdict{
+    margin:44px auto 0; max-width:var(--measure);
+    background:var(--raised); border:1px solid var(--rule);
+    border-left:3px solid var(--negative);
+    border-radius:3px; padding:24px 28px; box-shadow:var(--shadow);
+  }
+  .verdict p{margin:10px 0 0; font-size:18px}
+  .verdict p:first-of-type{margin-top:12px}
+  .verdict strong{color:var(--negative); font-weight:600}
+
+  h2{
+    font-size:26px; letter-spacing:-.012em; margin:0; font-weight:600;
+    text-wrap:balance;
+  }
+  section{margin-top:64px}
+  section > .col > .eyebrow + h2{margin-top:8px}
+  h3{font-size:19px; margin:36px 0 0; font-weight:600; letter-spacing:-.005em}
+  p{margin:16px 0 0; text-wrap:pretty}
+  a{color:var(--accent); text-underline-offset:2px}
+  code{
+    font-family:var(--mono); font-size:.86em;
+    background:var(--sunk); padding:.12em .38em; border-radius:2px;
+  }
+  strong{font-weight:600}
+
+  ol.phases{list-style:none; counter-reset:ph; padding:0; margin:24px 0 0}
+  ol.phases > li{
+    counter-increment:ph; position:relative; padding-left:52px;
+    margin-top:26px;
+  }
+  ol.phases > li::before{
+    content:counter(ph,decimal-leading-zero);
+    position:absolute; left:0; top:2px;
+    font-family:var(--mono); font-size:12px; color:var(--accent);
+    border:1px solid var(--rule); border-radius:2px;
+    padding:3px 7px; background:var(--raised);
+  }
+  ol.phases h3{margin:0 0 2px}
+
+  .bleed{max-width:960px; margin:32px auto 0}
+  .tablecard{
+    background:var(--raised); border:1px solid var(--rule); border-radius:3px;
+    box-shadow:var(--shadow); overflow-x:auto;
+  }
+  table{border-collapse:collapse; width:100%; font-family:var(--mono); font-size:13px}
+  caption{
+    text-align:left; font-family:var(--mono); font-size:11px;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
+    padding:16px 20px 0;
+  }
+  th,td{
+    padding:9px 20px; text-align:right; font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule-soft); white-space:nowrap;
+  }
+  th{
+    color:var(--muted); font-weight:400; font-size:11px;
+    letter-spacing:.09em; text-transform:uppercase;
+    border-bottom:1px solid var(--rule);
+  }
+  th:first-child,td:first-child{text-align:left}
+  tbody tr:last-child td{border-bottom:0}
+  .neg{color:var(--negative)}
+  .pos{color:var(--positive)}
+  tr.emph td{background:var(--sunk); font-weight:600}
+
+  figure{margin:36px 0 0}
+  figcaption{
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+    margin-top:14px; line-height:1.55; max-width:74ch;
+  }
+  .chartcard{
+    background:var(--raised); border:1px solid var(--rule); border-radius:3px;
+    box-shadow:var(--shadow); padding:22px 20px 12px; position:relative;
+  }
+  svg{display:block; width:100%; height:auto; overflow:visible}
+  .tick{font-family:var(--mono); font-size:10px; fill:var(--muted)}
+  .rowlab{font-family:var(--mono); font-size:11px; fill:var(--ink-2)}
+  .rowsub{font-family:var(--mono); font-size:9px; fill:var(--muted)}
+  .gridline{stroke:var(--rule-soft); stroke-width:1}
+  .zeroline{stroke:var(--ink-2); stroke-width:1.5}
+  .dot{fill:var(--accent); stroke:var(--raised); stroke-width:2; cursor:pointer}
+  .dot:hover{fill:var(--ink)}
+  .dot:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+
+  #tip{
+    position:absolute; pointer-events:none; opacity:0; transition:opacity .12s;
+    background:var(--ink); color:var(--paper); font-family:var(--mono);
+    font-size:11px; line-height:1.5; padding:7px 10px; border-radius:3px;
+    white-space:nowrap; z-index:5; transform:translate(-50%,-140%);
+  }
+  #tip.on{opacity:1}
+
+  ul.plain{margin:16px 0 0; padding-left:22px}
+  ul.plain li{margin-top:9px}
+
+  .checks{margin:24px 0 0; display:grid; gap:2px}
+  .check{
+    display:grid; grid-template-columns:88px 1fr; gap:16px; align-items:baseline;
+    padding:11px 0; border-bottom:1px solid var(--rule-soft);
+  }
+  .check:last-child{border-bottom:0}
+  .flag{
+    font-family:var(--mono); font-size:10px; letter-spacing:.12em;
+    text-transform:uppercase; padding:2px 0;
+  }
+  .flag.done{color:var(--positive)}
+  .flag.notdone{color:var(--negative)}
+  .check div:last-child{font-size:15.5px; color:var(--ink-2)}
+  .check b{color:var(--ink); font-weight:600}
+
+  footer{
+    margin-top:72px; padding-top:24px; border-top:1px solid var(--rule);
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+  }
+  footer p{margin:8px 0 0}
+
+  @media (max-width:640px){
+    body{font-size:16px}
+    .wrap{padding:0 20px 64px}
+    .check{grid-template-columns:1fr; gap:4px}
+    ol.phases > li{padding-left:0}
+    ol.phases > li::before{position:static; display:inline-block; margin-bottom:8px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <div class="col">
+    <p class="eyebrow">Falsification report &middot; SPY 15-minute bars &middot; 2016&ndash;2022</p>
+    <h1>ICT day-trading concepts do not survive costs</h1>
+    <p class="standfirst">
+      Six ICT primitives were mechanized, tested against ten years of consolidated-tape
+      data, and assembled into the canonical setup the methodology describes. Across 48
+      parameter configurations, none showed statistically significant edge. The only
+      result clearing the usual threshold was a loss.
+    </p>
+    <p class="byline">
+      <span>256 tests</span><span>167,215 bars</span><span>2,669 sessions</span><span>Paper only</span>
+    </p>
+  </div>
+</header>
+
+<div class="verdict">
+  <p class="eyebrow">Result</p>
+  <p><strong>Negative.</strong> The sweep-then-shift setup lost money net of costs at
+  baseline parameters &mdash; 61 trades, &minus;0.072R expectancy, t&nbsp;=&nbsp;&minus;0.70
+  &mdash; and the parameter sweep produced no configuration with significant positive
+  edge.</p>
+  <p>The out-of-sample holdout reserved for validation was never used. Nothing here
+  earned it.</p>
+</div>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">The question</p>
+    <h2>What was actually tested</h2>
+    <p>
+      ICT (Inner Circle Trader) is a widely taught body of day-trading concepts with no
+      independently verified public track record. The community evidence for it is
+      overwhelmingly retrospective chart-marking &mdash; setups identified after the fact,
+      on charts where the outcome is already visible.
+    </p>
+    <p>
+      This project asks a narrower question than "does ICT work": whether the concepts
+      survive being written down as code and run forward through data they have not seen.
+      That question can be answered honestly.
+    </p>
+    <p>
+      The instrument is SPY, the S&amp;P&nbsp;500 ETF, chosen because it is the friendliest
+      possible test &mdash; the tightest spread in the US equity market, the deepest
+      liquidity, and the instrument the methodology is most often demonstrated on. A
+      strategy that fails here fails worse everywhere else.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">Method</p>
+    <h2>How it was built</h2>
+    <p>
+      Three phases, each gating the next. No phase began before the previous one had its
+      tests passing.
+    </p>
+
+    <ol class="phases">
+      <li>
+        <h3>Data</h3>
+        <p>
+          Ten years of 15-minute bars from a consolidated-tape feed, cached locally. All
+          timestamps carry New York wall-clock time, because ICT concepts are defined in
+          it and the UTC offset changes twice a year.
+        </p>
+        <p>
+          Session boundaries come from the real NYSE calendar rather than a fixed
+          09:30&ndash;16:00 window. That correction mattered. The exchange closes at 13:00
+          on about two days a year, but the feed keeps returning bars until 16:00 because
+          the ETF still trades after hours elsewhere. A fixed window swallowed 251 thin
+          after-hours bars across 21 sessions as though they were regular trading &mdash;
+          and the wide price gaps between those sparse prints are indistinguishable from
+          the very pattern this project was about to go measure.
+        </p>
+      </li>
+      <li>
+        <h3>Signal primitives</h3>
+        <p>
+          Fair value gap, killzone filter, swing points, liquidity sweep, market structure
+          shift, and optimal trade entry &mdash; each a pure function over bars, each unit
+          tested against hand-built fixtures before anything was assembled.
+        </p>
+        <p>
+          Order blocks were deliberately not built. Their definition depends on an
+          "impulsive move," which has no mechanical meaning. Implementing one would have
+          meant inventing a threshold and then testing the invention rather than the
+          stated concept.
+        </p>
+      </li>
+      <li>
+        <h3>Backtest</h3>
+        <p>
+          A custom event loop, chosen over off-the-shelf libraries so every fill assumption
+          stays readable. Entry is at the next bar&rsquo;s open, never the signal
+          bar&rsquo;s close. A bar containing both stop and target resolves as a stop,
+          because OHLC data cannot order the high and the low within a bar and the
+          optimistic reading is worth three risk units per ambiguous trade.
+        </p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">Discipline</p>
+    <h2>What was fixed in advance</h2>
+    <p>
+      A backtest is evidence only if its rules were set before the results were visible.
+      These were.
+    </p>
+    <div class="checks">
+      <div class="check">
+        <span class="flag done">Fixed first</span>
+        <div><b>Holdout split at 2023-01-01.</b> Chosen before a single backtest ran and
+        guarded in code &mdash; touching it raises an exception unless explicitly
+        overridden. It remains unused.</div>
+      </div>
+      <div class="check">
+        <span class="flag done">Modelled</span>
+        <div><b>Transaction costs on every fill.</b> A penny spread plus half a cent of
+        slippage per side. Costs are not a footnote for an intraday strategy; they are
+        frequently the whole result.</div>
+      </div>
+      <div class="check">
+        <span class="flag done">Swept</span>
+        <div><b>Every undefined parameter.</b> ICT does not specify the swing lookback,
+        the killzone boundaries, the penetration threshold or the retracement band.
+        Results are reported across ranges, not at the flattering value.</div>
+      </div>
+      <div class="check">
+        <span class="flag notdone">Not done</span>
+        <div><b>No tuning toward a positive result.</b> The exit rule looks
+        mis-specified. It was recorded and left alone, because testing variants until one
+        works is the failure this design exists to prevent.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">Primary result</p>
+    <h2>The strategy loses money</h2>
+    <p>
+      The setup is the canonical ICT sequence: price sweeps a prior swing point, structure
+      shifts in the same direction within a few bars, enter, stop beyond the sweep, target
+      a multiple of that risk, flat by the close.
+    </p>
+  </div>
+
+  <div class="bleed">
+    <div class="tablecard">
+      <table>
+        <caption>Baseline &mdash; n=2, window=4 bars, 2R target, in-sample 2016&ndash;2022</caption>
+        <thead>
+          <tr><th>Measure</th><th>Gross</th><th>Net of costs</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Trades</td><td>61</td><td>61</td></tr>
+          <tr><td>Win rate</td><td>44.3%</td><td>44.3%</td></tr>
+          <tr><td>P&amp;L</td><td class="neg">&minus;257</td><td class="neg">&minus;437</td></tr>
+          <tr class="emph"><td>Expectancy per trade</td><td class="neg">&minus;0.042 R</td><td class="neg">&minus;0.072 R</td></tr>
+          <tr><td>Transaction cost</td><td>&mdash;</td><td>180</td></tr>
+          <tr><td>Max drawdown</td><td>&mdash;</td><td>797</td></tr>
+          <tr><td>t-statistic</td><td>&mdash;</td><td>&minus;0.70</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col">
+    <p>
+      A t-statistic of &minus;0.70 does not establish that the strategy loses. It
+      establishes that 61 trades cannot tell a small loss apart from noise. That is the
+      more important finding, and it recurs everywhere below: <strong>the setup is too
+      rare to test decisively.</strong> Over ten full years, the complete sequence fires
+      about once a month.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">Parameter sweep</p>
+    <h2>Nothing survives moving the knobs</h2>
+    <p>
+      Forty-eight configurations across the swing lookback <code>n</code>, the
+      sweep-to-shift window, and the target multiple. Each dot is one
+      configuration&rsquo;s average profit per trade, in risk units, after costs.
+    </p>
+  </div>
+
+  <figure class="bleed">
+    <div class="chartcard">
+      <div id="tip" role="status"></div>
+      <svg viewBox="0 0 760 342" role="img"
+           aria-label="Expectancy per trade for 48 configurations, grouped by swing lookback n. All values cluster near zero. n=1 spans both signs; n=3 is uniformly negative.">
+        <g id="grid"></g>
+        <g id="rows"></g>
+        <g id="dots"></g>
+      </svg>
+    </div>
+    <figcaption>
+      Expectancy per trade in risk units, net of costs &middot; 48 configurations
+      &middot; in-sample 2016&ndash;2022. Zero is break-even. Hover or tab to any dot for
+      its configuration and trade count. Sample sizes collapse as <code>n</code> rises:
+      every configuration at n=4 produced 11 trades or fewer, and three produced none at
+      all and are omitted.
+    </figcaption>
+  </figure>
+
+  <div class="col">
+    <p>
+      The picture is a cloud straddling zero, not a population sitting above it. Two
+      things in it matter more than the scatter.
+    </p>
+    <p>
+      <strong>The best-looking rows are the least trustworthy.</strong> Every positive
+      cluster sits at <code>n</code>&nbsp;=&nbsp;1, the loosest possible swing definition
+      &mdash; a bar that merely beats its two immediate neighbours. Hold <code>n</code> at
+      1 and widen the window from 2 bars to 8, and that same family becomes the largest
+      loss in the sweep. A result whose sign depends on a parameter nobody has ever
+      justified is noise.
+    </p>
+    <p>
+      <strong>Costs decide the marginal cases.</strong> Twenty-three configurations are
+      profitable before costs; seventeen after. The median cost drag is larger than the
+      median result &mdash; on the tightest-spread instrument available.
+    </p>
+  </div>
+
+  <div class="bleed">
+    <div class="tablecard">
+      <table>
+        <caption>Sweep summary &mdash; 48 configurations</caption>
+        <thead><tr><th>Measure</th><th>Value</th><th>Reading</th></tr></thead>
+        <tbody>
+          <tr><td>Profitable gross</td><td>23 / 48</td><td>Coin-flip before costs</td></tr>
+          <tr><td>Profitable net</td><td>17 / 48</td><td>Costs flip six</td></tr>
+          <tr class="emph"><td>With |t| &gt; 2</td><td>1</td><td>And it is a loss</td></tr>
+          <tr><td>Expected from noise</td><td>2.4</td><td>Fewer than chance predicts</td></tr>
+          <tr><td>Median net P&amp;L</td><td class="neg">&minus;82</td><td>&nbsp;</td></tr>
+          <tr><td>Median expectancy</td><td class="neg">&minus;0.038 R</td><td>&nbsp;</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col">
+    <p>
+      The last two rows are the cleanest statement of the result. Testing 48
+      configurations against pure noise would be expected to throw up about 2.4 that clear
+      the conventional significance threshold by luck alone. One did. It was negative.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">Secondary results</p>
+    <h2>Two headline statistics dissolve under a baseline</h2>
+    <p>
+      Before the strategy was assembled, two individual concepts were measured against
+      null models. Both produce impressive-sounding numbers that turn out to be exactly
+      what an unremarkable baseline already predicts.
+    </p>
+
+    <h3>Fair value gaps fill 74% of the time &mdash; and so does everything else</h3>
+    <p>
+      13,156 gaps were detected; 73.9% filled within the session. That is the figure
+      usually cited as evidence the pattern means something. Two independent baselines say
+      it does not.
+    </p>
+    <p>
+      Shuffling the bars within each session &mdash; preserving every bar&rsquo;s shape and
+      every jump between bars, destroying only their order &mdash; produces gaps that fill
+      at 73.4%&nbsp;&plusmn;&nbsp;0.3%. Randomly reordered price data yields the same
+      statistic. Separately, asking the same question of an arbitrary bar at the same time
+      of day gives 79.7%: real gaps fill <em>less</em> often than an arbitrary price level,
+      which is what geometry alone predicts, since a gap only forms after a decisive move.
+    </p>
+
+    <h3>The Fibonacci retracement band is not special</h3>
+    <p>
+      The optimal-entry band at 62&ndash;79% retracement is entered 46.4% of the time.
+      Holding the band width fixed and sliding only its depth produces a smooth, monotone
+      curve &mdash; 69.1% at 10&ndash;27%, falling steadily to 30.1% at 80&ndash;97%. The
+      conventional band sits on that curve, not above it. Its hit rate is fully explained
+      by how deep it sits: deeper retracements happen less often.
+    </p>
+
+    <h3>Killzones show no concentration</h3>
+    <p>
+      Gap density is flat across the trading day. Sliding the most-cited window thirty
+      minutes in either direction moves its concentration ratio between 1.05 and 1.11,
+      with the quoted boundary sitting at 1.08. The boundary is doing no work.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">Honesty</p>
+    <h2>What this does not show</h2>
+    <p>A negative result is worth only as much as its limits are stated.</p>
+    <ul class="plain">
+      <li><strong>It does not prove ICT cannot work.</strong> It shows that one mechanized
+      reading of it, on one instrument, at one timeframe, over one decade, did not clear
+      costs. A discretionary trader reading context off a chart is doing something this
+      code does not do.</li>
+      <li><strong>The sample is thin.</strong> The complete setup fires roughly monthly.
+      With 61 trades at baseline, only a large edge would have been detectable. A small
+      real edge would be invisible here &mdash; and so would a small real loss.</li>
+      <li><strong>The mechanization involved judgement calls.</strong> "Prevailing
+      structure" has no mechanical definition in the source material; the rule used here
+      is the narrowest one that needs no second definition. Someone reading structure off
+      a chart would disagree with it sometimes.</li>
+      <li><strong>The timeframe limits resolution.</strong> Fifteen-minute bars cannot
+      order the high and the low within a bar. Ambiguous trades were resolved
+      conservatively, which is an assumption rather than a measurement.</li>
+      <li><strong>Index futures were not tested.</strong> The data source carries no
+      futures, so several concepts leaning on the overnight session &mdash; which an ETF
+      simply does not have &mdash; could not be examined at all.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">Open</p>
+    <h2>The one loose thread, left deliberately loose</h2>
+    <p>
+      At baseline, of 61 trades: 44 exited at the session close, 15 at the stop, and only
+      <strong>2 reached the 2R target</strong>.
+    </p>
+    <p>
+      The target is almost never reachable in the bars remaining after entry. That may
+      mean the exit rule is mis-specified rather than the signal being worthless &mdash; a
+      2R target on 15-minute bars with a hard session-close exit may simply not have room
+      to resolve.
+    </p>
+    <p>
+      It was not pursued. Testing exit variants until one produces a profit is precisely
+      the process that generates convincing backtests of nothing. If it is investigated,
+      the honest form is to commit in advance to a single alternative, run it once, and
+      report whatever comes back.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="col">
+    <p class="eyebrow">Reproducing</p>
+    <h2>Checking this yourself</h2>
+    <p>
+      The result rests on the code being correct, so the code is tested rather than
+      trusted. 256 tests run without network access against hand-built fixtures. Every
+      load-bearing invariant was additionally verified by mutation &mdash; deliberately
+      breaking it and confirming the suite fails.
+    </p>
+    <p>
+      That practice caught a real defect in this project&rsquo;s own sweep detection. A
+      lookahead guard appeared harmless by argument; a mutation showed it silently changed
+      68 of 3,059 sweeps, in both directions. The written reasoning had been wrong, and
+      only the mechanical check found it.
+    </p>
+    <p>
+      The backtest is <code>scripts/backtest.py</code> and the null models are
+      <code>scripts/null_test.py</code>. Both read a local Parquet cache rebuilt by
+      <code>scripts/backfill.py</code>.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="col">
+    <p>Research tool. Paper only &mdash; no part of this project places orders or touches
+    real capital.</p>
+    <p>In-sample 2016-01-04 to 2022-12-30 &middot; holdout 2023-01-01 onward, unused.</p>
+  </div>
+</footer>
+
+</div>
+
+<script>
+  var DATA = [
+    {n:1, rows:[
+      ["win=2 R=1", 0.095,150],["win=2 R=2", 0.096,150],["win=2 R=3", 0.109,150],
+      ["win=4 R=1", 0.051,317],["win=4 R=2", 0.054,317],["win=4 R=3", 0.070,317],
+      ["win=6 R=1",-0.009,490],["win=6 R=2", 0.005,490],["win=6 R=3", 0.001,490],
+      ["win=8 R=1",-0.071,594],["win=8 R=2",-0.038,594],["win=8 R=3",-0.043,594]]},
+    {n:2, rows:[
+      ["win=2 R=1",-0.104,23],["win=2 R=2",-0.112,23],["win=2 R=3",-0.141,23],
+      ["win=4 R=1",-0.086,61],["win=4 R=2",-0.072,61],["win=4 R=3",-0.099,61],
+      ["win=6 R=1",-0.010,94],["win=6 R=2", 0.012,94],["win=6 R=3", 0.008,94],
+      ["win=8 R=1",-0.005,127],["win=8 R=2", 0.021,127],["win=8 R=3",-0.015,127]]},
+    {n:3, rows:[
+      ["win=2 R=1",-0.095,3],["win=2 R=2",-0.241,3],["win=2 R=3",-0.241,3],
+      ["win=4 R=1",-0.132,12],["win=4 R=2",-0.168,12],["win=4 R=3",-0.168,12],
+      ["win=6 R=1",-0.039,25],["win=6 R=2",-0.091,25],["win=6 R=3",-0.091,25],
+      ["win=8 R=1",-0.035,35],["win=8 R=2",-0.049,35],["win=8 R=3",-0.049,35]]},
+    {n:4, rows:[
+      ["win=4 R=1", 0.153,2],["win=4 R=2", 0.153,2],["win=4 R=3", 0.153,2],
+      ["win=6 R=1", 0.061,9],["win=6 R=2", 0.005,9],["win=6 R=3", 0.005,9],
+      ["win=8 R=1",-0.085,11],["win=8 R=2",-0.131,11],["win=8 R=3",-0.131,11]]}
+  ];
+
+  var X0 = 104, X1 = 738, LO = -0.28, HI = 0.19;
+  var ROW_Y = [86, 146, 206, 266];
+  var TOP = 46, BOT = 300;
+  var NS = "http://www.w3.org/2000/svg";
+
+  function x(v){ return X0 + (v - LO) / (HI - LO) * (X1 - X0); }
+  function el(name, attrs){
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+
+  var grid = document.getElementById("grid");
+  [-0.25,-0.20,-0.15,-0.10,-0.05,0,0.05,0.10,0.15].forEach(function(t){
+    var isZero = Math.abs(t) < 1e-9;
+    grid.appendChild(el("line", {
+      x1:x(t), x2:x(t), y1:TOP, y2:BOT,
+      "class": isZero ? "zeroline" : "gridline"
+    }));
+    var lab = el("text", {x:x(t), y:BOT + 20, "class":"tick", "text-anchor":"middle"});
+    lab.textContent = isZero ? "0" : t.toFixed(2);
+    grid.appendChild(lab);
+  });
+  var zlab = el("text", {x:x(0), y:TOP - 14, "class":"tick", "text-anchor":"middle"});
+  zlab.textContent = "BREAK-EVEN";
+  grid.appendChild(zlab);
+  var xlab = el("text", {x:(X0 + X1) / 2, y:BOT + 42, "class":"tick", "text-anchor":"middle"});
+  xlab.textContent = "EXPECTANCY PER TRADE (R), NET OF COSTS";
+  grid.appendChild(xlab);
+
+  var rows = document.getElementById("rows");
+  DATA.forEach(function(group, i){
+    var y = ROW_Y[i];
+    var lab = el("text", {x:X0 - 18, y:y + 3, "class":"rowlab", "text-anchor":"end"});
+    lab.textContent = "n = " + group.n;
+    rows.appendChild(lab);
+    var sub = el("text", {x:X0 - 18, y:y + 17, "class":"rowsub", "text-anchor":"end"});
+    sub.textContent = group.rows.length + " cfg";
+    rows.appendChild(sub);
+  });
+
+  var dots = document.getElementById("dots");
+  var tip = document.getElementById("tip");
+  var card = tip.parentNode;
+
+  function show(target, text){
+    tip.textContent = text;
+    tip.classList.add("on");
+    var box = card.getBoundingClientRect();
+    var pt = target.getBoundingClientRect();
+    tip.style.left = (pt.left - box.left + pt.width / 2) + "px";
+    tip.style.top = (pt.top - box.top) + "px";
+  }
+  function hide(){ tip.classList.remove("on"); }
+
+  DATA.forEach(function(group, i){
+    var y = ROW_Y[i];
+    var seen = {};
+    group.rows.forEach(function(r){
+      var key = r[1].toFixed(3);
+      seen[key] = (seen[key] || 0) + 1;
+      var offset = (seen[key] - 1) * 9;
+      var label = "n=" + group.n + " " + r[0] + "  →  "
+        + (r[1] >= 0 ? "+" : "") + r[1].toFixed(3) + "R  ·  " + r[2] + " trades";
+      var c = el("circle", {
+        cx:x(r[1]), cy:y - offset, r:5, "class":"dot",
+        tabindex:"0", role:"img", "aria-label":label
+      });
+      c.addEventListener("mouseenter", function(ev){ show(ev.target, label); });
+      c.addEventListener("focus", function(ev){ show(ev.target, label); });
+      c.addEventListener("mouseleave", hide);
+      c.addEventListener("blur", hide);
+      dots.appendChild(c);
+    });
+  });
+</script>
