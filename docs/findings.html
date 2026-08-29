@@ -202,8 +202,8 @@
 <div class="verdict">
   <p class="eyebrow">Result</p>
   <p><strong>Negative.</strong> The sweep-then-shift setup lost money net of costs at
-  baseline parameters &mdash; 61 trades, &minus;0.072R expectancy, t&nbsp;=&nbsp;&minus;0.70
-  &mdash; and the parameter sweep produced no configuration with significant positive
+  baseline parameters (61 trades, &minus;0.072R expectancy, t&nbsp;=&nbsp;&minus;0.70),
+  and the parameter sweep produced no configuration with significant positive
   edge.</p>
   <p>The out-of-sample holdout reserved for validation was never used. Nothing here
   earned it.</p>
@@ -216,7 +216,7 @@
     <p>
       ICT (Inner Circle Trader) is a widely taught body of day-trading concepts with no
       independently verified public track record. The community evidence for it is
-      overwhelmingly retrospective chart-marking &mdash; setups identified after the fact,
+      overwhelmingly retrospective chart-marking: setups identified after the fact,
       on charts where the outcome is already visible.
     </p>
     <p>
@@ -226,7 +226,7 @@
     </p>
     <p>
       The instrument is SPY, the S&amp;P&nbsp;500 ETF, chosen because it is the friendliest
-      possible test &mdash; the tightest spread in the US equity market, the deepest
+      possible test: the tightest spread in the US equity market, the deepest
       liquidity, and the instrument the methodology is most often demonstrated on. A
       strategy that fails here fails worse everywhere else.
     </p>
@@ -255,8 +255,8 @@
           09:30&ndash;16:00 window. That correction mattered. The exchange closes at 13:00
           on about two days a year, but the feed keeps returning bars until 16:00 because
           the ETF still trades after hours elsewhere. A fixed window swallowed 251 thin
-          after-hours bars across 21 sessions as though they were regular trading &mdash;
-          and the wide price gaps between those sparse prints are indistinguishable from
+          after-hours bars across 21 sessions as though they were regular trading, and
+          the wide price gaps between those sparse prints are indistinguishable from
           the very pattern this project was about to go measure.
         </p>
       </li>
@@ -264,7 +264,7 @@
         <h3>Signal primitives</h3>
         <p>
           Fair value gap, killzone filter, swing points, liquidity sweep, market structure
-          shift, and optimal trade entry &mdash; each a pure function over bars, each unit
+          shift, and optimal trade entry, each a pure function over bars, each unit
           tested against hand-built fixtures before anything was assembled.
         </p>
         <p>
@@ -300,7 +300,7 @@
       <div class="check">
         <span class="flag done">Fixed first</span>
         <div><b>Holdout split at 2023-01-01.</b> Chosen before a single backtest ran and
-        guarded in code &mdash; touching it raises an exception unless explicitly
+        guarded in code: touching it raises an exception unless explicitly
         overridden. It remains unused.</div>
       </div>
       <div class="check">
@@ -339,7 +339,7 @@
   <div class="bleed">
     <div class="tablecard">
       <table>
-        <caption>Baseline &mdash; n=2, window=4 bars, 2R target, in-sample 2016&ndash;2022</caption>
+        <caption>Baseline: n=2, window=4 bars, 2R target, in-sample 2016&ndash;2022</caption>
         <thead>
           <tr><th>Measure</th><th>Gross</th><th>Net of costs</th></tr>
         </thead>
@@ -404,8 +404,8 @@
     </p>
     <p>
       <strong>The best-looking rows are the least trustworthy.</strong> Every positive
-      cluster sits at <code>n</code>&nbsp;=&nbsp;1, the loosest possible swing definition
-      &mdash; a bar that merely beats its two immediate neighbours. Hold <code>n</code> at
+      cluster sits at <code>n</code>&nbsp;=&nbsp;1, the loosest possible swing definition:
+      a bar that merely beats its two immediate neighbours. Hold <code>n</code> at
       1 and widen the window from 2 bars to 8, and that same family becomes the largest
       loss in the sweep. A result whose sign depends on a parameter nobody has ever
       justified is noise.
@@ -413,14 +413,14 @@
     <p>
       <strong>Costs decide the marginal cases.</strong> Twenty-three configurations are
       profitable before costs; seventeen after. The median cost drag is larger than the
-      median result &mdash; on the tightest-spread instrument available.
+      median result, on the tightest-spread instrument available.
     </p>
   </div>
 
   <div class="bleed">
     <div class="tablecard">
       <table>
-        <caption>Sweep summary &mdash; 48 configurations</caption>
+        <caption>Sweep summary: 48 configurations</caption>
         <thead><tr><th>Measure</th><th>Value</th><th>Reading</th></tr></thead>
         <tbody>
           <tr><td>Profitable gross</td><td>23 / 48</td><td>Coin-flip before costs</td></tr>
@@ -453,15 +453,15 @@
       what an unremarkable baseline already predicts.
     </p>
 
-    <h3>Fair value gaps fill 74% of the time &mdash; and so does everything else</h3>
+    <h3>Fair value gaps fill 74% of the time, and so does everything else</h3>
     <p>
       13,156 gaps were detected; 73.9% filled within the session. That is the figure
       usually cited as evidence the pattern means something. Two independent baselines say
       it does not.
     </p>
     <p>
-      Shuffling the bars within each session &mdash; preserving every bar&rsquo;s shape and
-      every jump between bars, destroying only their order &mdash; produces gaps that fill
+      Shuffling the bars within each session (preserving every bar&rsquo;s shape and
+      every jump between bars, destroying only their order) produces gaps that fill
       at 73.4%&nbsp;&plusmn;&nbsp;0.3%. Randomly reordered price data yields the same
       statistic. Separately, asking the same question of an arbitrary bar at the same time
       of day gives 79.7%: real gaps fill <em>less</em> often than an arbitrary price level,
@@ -472,7 +472,7 @@
     <p>
       The optimal-entry band at 62&ndash;79% retracement is entered 46.4% of the time.
       Holding the band width fixed and sliding only its depth produces a smooth, monotone
-      curve &mdash; 69.1% at 10&ndash;27%, falling steadily to 30.1% at 80&ndash;97%. The
+      curve: 69.1% at 10&ndash;27%, falling steadily to 30.1% at 80&ndash;97%. The
       conventional band sits on that curve, not above it. Its hit rate is fully explained
       by how deep it sits: deeper retracements happen less often.
     </p>
@@ -498,7 +498,7 @@
       code does not do.</li>
       <li><strong>The sample is thin.</strong> The complete setup fires roughly monthly.
       With 61 trades at baseline, only a large edge would have been detectable. A small
-      real edge would be invisible here &mdash; and so would a small real loss.</li>
+      real edge would be invisible here, and so would a small real loss.</li>
       <li><strong>The mechanization involved judgement calls.</strong> "Prevailing
       structure" has no mechanical definition in the source material; the rule used here
       is the narrowest one that needs no second definition. Someone reading structure off
@@ -507,8 +507,8 @@
       order the high and the low within a bar. Ambiguous trades were resolved
       conservatively, which is an assumption rather than a measurement.</li>
       <li><strong>Index futures were not tested.</strong> The data source carries no
-      futures, so several concepts leaning on the overnight session &mdash; which an ETF
-      simply does not have &mdash; could not be examined at all.</li>
+      futures, so several concepts leaning on the overnight session (which an ETF
+      simply does not have) could not be examined at all.</li>
     </ul>
   </div>
 </section>
@@ -523,7 +523,7 @@
     </p>
     <p>
       The target is almost never reachable in the bars remaining after entry. That may
-      mean the exit rule is mis-specified rather than the signal being worthless &mdash; a
+      mean the exit rule is mis-specified rather than the signal being worthless: a
       2R target on 15-minute bars with a hard session-close exit may simply not have room
       to resolve.
     </p>
@@ -543,7 +543,7 @@
     <p>
       The result rests on the code being correct, so the code is tested rather than
       trusted. 256 tests run without network access against hand-built fixtures. Every
-      load-bearing invariant was additionally verified by mutation &mdash; deliberately
+      load-bearing invariant was additionally verified by mutation: deliberately
       breaking it and confirming the suite fails.
     </p>
     <p>
@@ -562,7 +562,7 @@
 
 <footer>
   <div class="col">
-    <p>Research tool. Paper only &mdash; no part of this project places orders or touches
+    <p>Research tool. Paper only. No part of this project places orders or touches
     real capital.</p>
     <p>In-sample 2016-01-04 to 2022-12-30 &middot; holdout 2023-01-01 onward, unused.</p>
   </div>

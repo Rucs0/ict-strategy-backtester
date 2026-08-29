@@ -17,8 +17,8 @@ Paper trading only. No live capital, no real brokerage execution.
 
 ## Why this exists
 
-There is no independently verified public track record for ICT methodology —
-the community evidence for it is overwhelmingly retrospective chart-marking,
+There is no independently verified public track record for ICT methodology.
+The community evidence for it is overwhelmingly retrospective chart-marking,
 setups identified after the outcome is already visible. This project asks a
 narrower question: do the concepts survive being written down as code and run
 forward through data they have not seen. It answers that question honestly,
@@ -28,7 +28,7 @@ including when the answer doesn't flatter the premise.
 
 - Out-of-sample holdout fixed **before** any backtest ran, guarded in code
 - Transaction costs modelled on every fill
-- Every undefined parameter swept, results reported across the full range —
+- Every undefined parameter swept, results reported across the full range,
   no single flattering value
 - Every load-bearing invariant checked by mutation testing (deliberately
   breaking it and confirming the test suite catches it)
@@ -49,7 +49,7 @@ Full detail, including the parameter sweep table and both null-model results:
 .venv/Scripts/python.exe -m pytest -q                   # 256 tests
 ```
 
-Requires an Alpaca market-data API key in `.env` — see `.env.example`.
+Requires an Alpaca market-data API key in `.env`, see `.env.example`.
 
 ## License
 

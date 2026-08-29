@@ -1,6 +1,6 @@
 # ICT day-trading concepts do not survive costs
 
-**Falsification report — SPY 15-minute bars, 2016–2022**
+**Falsification report: SPY 15-minute bars, 2016–2022**
 
 256 tests · 167,215 bars · 2,669 sessions · paper only
 
@@ -10,7 +10,7 @@ parameter configurations, none showed statistically significant edge. The only
 result clearing the usual threshold was a loss.
 
 > **Result: negative.** The sweep-then-shift setup lost money net of costs at
-> baseline parameters — 61 trades, −0.072R expectancy, t = −0.70 — and the
+> baseline parameters (61 trades, −0.072R expectancy, t = −0.70), and the
 > parameter sweep produced no configuration with significant positive edge.
 >
 > The out-of-sample holdout reserved for validation was never used. Nothing here
@@ -22,7 +22,7 @@ result clearing the usual threshold was a loss.
 
 ICT (Inner Circle Trader) is a widely taught body of day-trading concepts with no
 independently verified public track record. The community evidence for it is
-overwhelmingly retrospective chart-marking — setups identified after the fact, on
+overwhelmingly retrospective chart-marking: setups identified after the fact, on
 charts where the outcome is already visible.
 
 This project asks a narrower question than "does ICT work": whether the concepts
@@ -30,7 +30,7 @@ survive being written down as code and run forward through data they have not
 seen. That question can be answered honestly.
 
 The instrument is SPY, the S&P 500 ETF, chosen because it is the friendliest
-possible test — the tightest spread in the US equity market, the deepest
+possible test: the tightest spread in the US equity market, the deepest
 liquidity, and the instrument the methodology is most often demonstrated on. A
 strategy that fails here fails worse everywhere else.
 
@@ -41,7 +41,7 @@ strategy that fails here fails worse everywhere else.
 Three phases, each gating the next. No phase began before the previous one had
 its tests passing.
 
-### 01 — Data
+### 01. Data
 
 Ten years of 15-minute bars from a consolidated-tape feed, cached locally. All
 timestamps carry New York wall-clock time, because ICT concepts are defined in it
@@ -51,14 +51,14 @@ Session boundaries come from the real NYSE calendar rather than a fixed
 09:30–16:00 window. That correction mattered. The exchange closes at 13:00 on
 about two days a year, but the feed keeps returning bars until 16:00 because the
 ETF still trades after hours elsewhere. A fixed window swallowed 251 thin
-after-hours bars across 21 sessions as though they were regular trading — and the
+after-hours bars across 21 sessions as though they were regular trading, and the
 wide price gaps between those sparse prints are indistinguishable from the very
 pattern this project was about to go measure.
 
-### 02 — Signal primitives
+### 02. Signal primitives
 
 Fair value gap, killzone filter, swing points, liquidity sweep, market structure
-shift, and optimal trade entry — each a pure function over bars, each unit tested
+shift, and optimal trade entry, each a pure function over bars, each unit tested
 against hand-built fixtures before anything was assembled.
 
 Order blocks were deliberately not built. Their definition depends on an
@@ -66,7 +66,7 @@ Order blocks were deliberately not built. Their definition depends on an
 meant inventing a threshold and then testing the invention rather than the stated
 concept.
 
-### 03 — Backtest
+### 03. Backtest
 
 A custom event loop, chosen over off-the-shelf libraries so every fill assumption
 stays readable. Entry is at the next bar's open, never the signal bar's close. A
@@ -83,7 +83,7 @@ visible. These were.
 
 | | |
 |---|---|
-| **Fixed first** | **Holdout split at 2023-01-01.** Chosen before a single backtest ran and guarded in code — touching it raises an exception unless explicitly overridden. It remains unused. |
+| **Fixed first** | **Holdout split at 2023-01-01.** Chosen before a single backtest ran and guarded in code: touching it raises an exception unless explicitly overridden. It remains unused. |
 | **Modelled** | **Transaction costs on every fill.** A penny spread plus half a cent of slippage per side. Costs are not a footnote for an intraday strategy; they are frequently the whole result. |
 | **Swept** | **Every undefined parameter.** ICT does not specify the swing lookback, the killzone boundaries, the penetration threshold or the retracement band. Results are reported across ranges, not at the flattering value. |
 | **Not done** | **No tuning toward a positive result.** The exit rule looks mis-specified. It was recorded and left alone, because testing variants until one works is the failure this design exists to prevent. |
@@ -96,7 +96,7 @@ The setup is the canonical ICT sequence: price sweeps a prior swing point,
 structure shifts in the same direction within a few bars, enter, stop beyond the
 sweep, target a multiple of that risk, flat by the close.
 
-**Baseline — n=2, window=4 bars, 2R target, in-sample 2016–2022**
+**Baseline: n=2, window=4 bars, 2R target, in-sample 2016–2022**
 
 | Measure | Gross | Net of costs |
 |---|---:|---:|
@@ -145,16 +145,16 @@ The values straddle zero rather than sitting above it. Two things matter more
 than the scatter.
 
 **The best-looking rows are the least trustworthy.** Every positive cluster sits
-at `n = 1`, the loosest possible swing definition — a bar that merely beats its
+at `n = 1`, the loosest possible swing definition: a bar that merely beats its
 two immediate neighbours. Hold `n` at 1 and widen the window from 2 bars to 8,
 and that same family becomes the largest loss in the sweep. A result whose sign
 depends on a parameter nobody has ever justified is noise.
 
 **Costs decide the marginal cases.** Twenty-three configurations are profitable
 before costs; seventeen after. The median cost drag is larger than the median
-result — on the tightest-spread instrument available.
+result, on the tightest-spread instrument available.
 
-**Sweep summary — 48 configurations**
+**Sweep summary: 48 configurations**
 
 | Measure | Value | Reading |
 |---|---:|---|
@@ -178,14 +178,14 @@ Before the strategy was assembled, two individual concepts were measured against
 null models. Both produce impressive-sounding numbers that turn out to be exactly
 what an unremarkable baseline already predicts.
 
-### Fair value gaps fill 74% of the time — and so does everything else
+### Fair value gaps fill 74% of the time, and so does everything else
 
 13,156 gaps were detected; 73.9% filled within the session. That is the figure
 usually cited as evidence the pattern means something. Two independent baselines
 say it does not.
 
-Shuffling the bars within each session — preserving every bar's shape and every
-jump between bars, destroying only their order — produces gaps that fill at
+Shuffling the bars within each session (preserving every bar's shape and every
+jump between bars, destroying only their order) produces gaps that fill at
 73.4% ± 0.3%. Randomly reordered price data yields the same statistic.
 Separately, asking the same question of an arbitrary bar at the same time of day
 gives 79.7%: real gaps fill *less* often than an arbitrary price level, which is
@@ -230,7 +230,7 @@ A negative result is worth only as much as its limits are stated.
   does not do.
 - **The sample is thin.** The complete setup fires roughly monthly. With 61
   trades at baseline, only a large edge would have been detectable. A small real
-  edge would be invisible here — and so would a small real loss.
+  edge would be invisible here, and so would a small real loss.
 - **The mechanization involved judgement calls.** "Prevailing structure" has no
   mechanical definition in the source material; the rule used here is the
   narrowest one that needs no second definition. Someone reading structure off a
@@ -239,8 +239,8 @@ A negative result is worth only as much as its limits are stated.
   and the low within a bar. Ambiguous trades were resolved conservatively, which
   is an assumption rather than a measurement.
 - **Index futures were not tested.** The data source carries no futures, so
-  several concepts leaning on the overnight session — which an ETF simply does
-  not have — could not be examined at all.
+  several concepts leaning on the overnight session (which an ETF simply does
+  not have) could not be examined at all.
 
 ---
 
@@ -250,7 +250,7 @@ At baseline, of 61 trades: 44 exited at the session close, 15 at the stop, and
 only **2 reached the 2R target**.
 
 The target is almost never reachable in the bars remaining after entry. That may
-mean the exit rule is mis-specified rather than the signal being worthless — a 2R
+mean the exit rule is mis-specified rather than the signal being worthless: a 2R
 target on 15-minute bars with a hard session-close exit may simply not have room
 to resolve.
 
@@ -265,7 +265,7 @@ run it once, and report whatever comes back.
 
 The result rests on the code being correct, so the code is tested rather than
 trusted. 256 tests run without network access against hand-built fixtures. Every
-load-bearing invariant was additionally verified by mutation — deliberately
+load-bearing invariant was additionally verified by mutation: deliberately
 breaking it and confirming the suite fails.
 
 That practice caught a real defect in this project's own sweep detection. A
@@ -282,7 +282,7 @@ wrong, and only the mechanical check found it.
 
 ---
 
-*Research tool. Paper only — no part of this project places orders or touches
+*Research tool. Paper only. No part of this project places orders or touches
 real capital.*
 
 *In-sample 2016-01-04 to 2022-12-30 · holdout 2023-01-01 onward, unused.*
